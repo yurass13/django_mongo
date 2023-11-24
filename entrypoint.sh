@@ -10,6 +10,7 @@ echo "Mongo started"
 
 # Wipe data for changed models on each restart
 python manage.py flush --no-input
+python manage.py makemigrations custom_forms
 python manage.py makemigrations
 python manage.py migrate
 

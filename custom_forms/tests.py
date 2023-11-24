@@ -317,32 +317,7 @@ class GetFormPostDBTest(TestCase):
         self.assertEquals(response.data, {'name': 'Text with date1 and date2'})
 
     def test_names_exists_but_wrong_types(self):
-        """Returns from prototype.
-            BUG In query or DB response:
-                1. Type of DT1 is TX
-                    get_form:$fields= [
-                        {'f_name': 'TX1', 'f_type': 'TX'},
-                        {'f_name': 'DT1', 'f_type': 'TX'},
-                        {'f_name': 'DT2', 'f_type': 'DT'}
-                    ]
-                2. In query prototype we see that f_type of DT1 is TX:
-                    get_form:$candidates.query = '''
-                        SELECT
-                            "custom_forms_customform"."name",
-                            "custom_forms_customform"."fields"
-                        FROM "custom_forms_customform"
-                        WHERE (
-                            "custom_forms_customform"."fields" = {'f_name': 'TX1', 'f_type': 'TX'} AND
-                            "custom_forms_customform"."fields" = {'f_name': 'DT1', 'f_type': 'TX'} AND
-                            "custom_forms_customform"."fields" = {'f_name': 'DT2', 'f_type': 'DT'}
-                        )
-                3. But QuerySet is not empty:
-                    len(get_form:$candidates)=1
-                    get_form:$best_form = <QuerySet [<CustomForm: CustomForm object (Text with date1 and date2)>]>
-
-                May mongo ignore f_type after find f_name?
-                    '''
-        """
+        """Returns prototype."""
 
         response = self._client.post(reverse('custom_forms:get_form'),
                                      data={'TX1': 'text data',
