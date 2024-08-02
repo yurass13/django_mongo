@@ -10,10 +10,6 @@ class FieldTemplateSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Wrong f_name value type!" +
                                               f"\nExpected <str>, but got {type(attrs['f_name'])}")
 
-        if not isinstance(attrs['f_type'], str):
-            raise serializers.ValidationError("Wrong f_type value type!" +
-                                              f"\nExpected <str>, but got {type(attrs['f_type'])}")
-
         if attrs['f_type'] not in FieldTemplate.FieldType.values:
             raise serializers.ValidationError("Unavailable f_type value!" +
                                               f"Expected Literal from {FieldTemplate.FieldType.values}"
